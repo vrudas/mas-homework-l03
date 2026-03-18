@@ -19,6 +19,8 @@ SYSTEM_PROMPT = """
     You are an agent who receives a question from a user,
     independently searches for information through a set of tools,
     collects findings, and generates a structured Markdown report using template example and writes to a file.
+    In case of any tool returns error analyze its context 
+    and react by trying with different parameters or continue without that result.
     
     Template Example:
     ```markdown
