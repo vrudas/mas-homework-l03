@@ -19,7 +19,16 @@ def write_report(filename: str, content: str) -> str:
     return f"Report written to {path}"
 
 
+@tool
 def web_search(query: str) -> list[dict]:
+    """Run web search for given query and return a list of search results.
+    Args: query: search string
+    Example: [{
+                "title": "Q-dance",
+                "url": "https://en.wikipedia.org/wiki/Q-dance",
+                "snippet": "Q-dance is a Dutch event production company",
+            }]
+    """
     try:
         search_results = DDGS().text(query, max_results=settings.max_search_results)
         return [
