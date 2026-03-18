@@ -1,4 +1,5 @@
 langchain>=1.2.0
+langchain-openai>=1.1.11
 ddgs>=7.0
 trafilatura>=2.0.0
 pydantic>=2.12.0
