@@ -2,6 +2,7 @@ import os
 
 import trafilatura
 from ddgs import DDGS
+from langchain_core.tools import tool
 
 from config import settings
 
@@ -33,10 +34,14 @@ def web_search(query: str) -> list[dict]:
         print(f"Error fetching URL: {query}")
         return []
 
+
+@tool
 def read_url(url: str) -> str:
+    """Read url content and return it.
+    Args: url: url string"""
     try:
         downloaded = trafilatura.fetch_url(url)
         text = trafilatura.extract(downloaded)
         return text[:settings.max_url_content_length]
-    except Exception:
-        return f"Error fetching URL: {url}"
+    except Exception as e:
+        return f"Content not available for {url}: {e}"
