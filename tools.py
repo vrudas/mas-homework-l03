@@ -1,5 +1,6 @@
 import os
 
+import trafilatura
 from ddgs import DDGS
 
 from config import settings
@@ -33,4 +34,9 @@ def web_search(query: str) -> list[dict]:
         return []
 
 def read_url(url: str) -> str:
-    pass
+    try:
+        downloaded = trafilatura.fetch_url(url)
+        text = trafilatura.extract(downloaded)
+        return text[:settings.max_url_content_length]
+    except Exception:
+        return f"Error fetching URL: {url}"
