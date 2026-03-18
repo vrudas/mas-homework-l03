@@ -7,7 +7,10 @@ from langchain_core.tools import tool
 from config import settings
 
 
+@tool
 def write_report(filename: str, content: str) -> str:
+    """Write content to a file with provided filename in the output directory and return the file path.
+    Args: filename: file name string, content: content string to write in the file"""
     path = "./" + settings.output_dir + "/" + filename
 
     dirpath = os.path.dirname(path) or "."
