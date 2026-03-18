@@ -1,9 +1,14 @@
+import uuid
+
 from agent import agent
 
 
 def main():
     print("Research Agent (type 'exit' to quit)")
     print("-" * 40)
+
+    # Create a unique thread ID for this conversation session
+    thread_id = str(uuid.uuid4())
 
     while True:
         try:
@@ -20,7 +25,8 @@ def main():
             break
 
         for chunk in agent.stream(
-            {"messages": [("user", user_input)]},
+                {"messages": [("user", user_input)]},
+                config={"configurable": {"thread_id": thread_id}}
         ):
             if "agent" in chunk and "messages" in chunk["agent"]:
                 for msg in chunk["agent"]["messages"]:
