@@ -28,7 +28,14 @@ def main():
                 {"messages": [("user", user_input)]},
                 config={"configurable": {"thread_id": thread_id}}
         ):
-            print(chunk)
+            if "model" in chunk and "messages" in chunk["model"]:
+                for msg in chunk["model"]["messages"]:
+                    if hasattr(msg, "tool_calls") and msg.tool_calls:
+                        for call in msg.tool_calls:
+                            print(f"-> {call["name"]} {call["args"]}"[:200])
+
+                    if hasattr(msg, "content") and msg.content:
+                        print(f"\nAgent: {msg.content}")
 
 
 if __name__ == "__main__":
