@@ -38,7 +38,7 @@ def web_search(query: str) -> list[dict]:
             {
                 "title": search_result.get("title"),
                 "url": search_result.get("href"),
-                "snippet": search_result.get("body"),
+                "snippet": search_result.get("body", "")[:300],
             }
             for search_result in search_results
         ]
